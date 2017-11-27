@@ -18,6 +18,9 @@ class AllTests(unittest.TestCase):
         sklearn.grid_search.GridSearchCV = sklearn.grid_search.GridSearchCV_original
         del sklearn.grid_search.GridSearchCV_original
 
+        sklearn.grid_search.RandomizedSearchCV = sklearn.grid_search.RandomizedSearchCV_original
+        del sklearn.grid_search.RandomizedSearchCV_original
+
 
 class SPGridSearchWrapper(GridSearchCV):
     def __init__(self, estimator, param_grid, scoring=None, fit_params=None,
