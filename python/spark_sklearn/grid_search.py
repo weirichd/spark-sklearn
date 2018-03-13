@@ -98,7 +98,6 @@ class SparkBaseSearchCV(BaseSearchCV):
         verbose = self.verbose
         error_score = self.error_score
         return_train_score = self.return_train_score
-        fas = _fit_and_score
 
         def fun(tup):
             # DO NOT REFERENCE TO `self` ANYWHERE IN THIS FUNCTION.
@@ -107,13 +106,11 @@ class SparkBaseSearchCV(BaseSearchCV):
             local_estimator = clone(base_estimator)
             local_X = X_bc.value
             local_y = y_bc.value
-            res = fas(local_estimator, local_X, local_y, scorers, train, test,
-                      verbose, parameters, fit_params,
-                      return_train_score=return_train_score,
-                      return_n_test_samples=True,
-                      return_times=True,
-                      return_parameters=True,
-                      error_score=error_score)
+            res = _fit_and_score(local_estimator, local_X, local_y, scorers,
+                train, test, verbose, parameters, fit_params=fit_params,
+                return_train_score=return_train_score,
+                return_n_test_samples=True, return_times=True,
+                error_score=error_score)
             return (index, res)
 
         indexed_out0 = dict(par_param_grid.map(fun).collect())
