@@ -134,7 +134,6 @@ class SparkBaseSearchCV(BaseSearchCV):
 
         # test_score_dicts and train_score dicts are lists of dictionaries and
         # we make them into dict of lists
-
         test_scores = _aggregate_score_dicts(test_score_dicts)
         if self.verbose > 1:
             print('TEST')
@@ -145,7 +144,6 @@ class SparkBaseSearchCV(BaseSearchCV):
             if self.verbose > 1:
                 print('TRAIN')
                 print(train_scores)
-
 
         results = dict()
 
