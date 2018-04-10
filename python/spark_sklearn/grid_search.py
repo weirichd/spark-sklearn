@@ -122,15 +122,28 @@ class SparkBaseSearchCV(BaseSearchCV):
         if self.return_train_score:
             (train_score_dicts, test_score_dicts, test_sample_counts,
              fit_time, score_time) = zip(*out)
+
         else:
             (test_score_dicts, test_sample_counts,
              fit_time, score_time) = zip(*out)
 
+        if self.verbose > 2:
+            print('test_sample_counts: {}'.format(test_sample_counts))
+            print('fit_time: {}'.format(fit_time))
+            print('score_time: {}'.format(score_time))
+
         # test_score_dicts and train_score dicts are lists of dictionaries and
         # we make them into dict of lists
         test_scores = _aggregate_score_dicts(test_score_dicts)
+        if self.verbose > 1:
+            print('TEST')
+            print(test_scores)
+
         if self.return_train_score:
             train_scores = _aggregate_score_dicts(train_score_dicts)
+            if self.verbose > 1:
+                print('TRAIN')
+                print(train_scores)
 
         results = dict()
 
